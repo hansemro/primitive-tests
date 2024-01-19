@@ -16,13 +16,12 @@ module ram64x1s (
     localparam D_WIDTH = 1;
 
     wire clk;
-`ifdef DIFF_CLK
     wire clk_ibufg;
-
+`ifdef DIFF_CLK
     IBUFDS ibuf_inst (.I(clk_p_i), .IB(clk_n_i), .O(clk_ibufg));
     BUFG bufg_inst (.I(clk_ibufg), .O(clk));
 `else
-    assign clk = clk_i;
+    BUFG bufg_inst (.I(clk_i), .O(clk));
 `endif
 
     reg clk_div;
