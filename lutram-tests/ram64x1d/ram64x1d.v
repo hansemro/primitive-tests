@@ -8,12 +8,12 @@ module ram64x1d (
         input clk_i,
 `endif
         input rst_i,
-        output [1:0] q_o
+        output [D_WIDTH-1:0] q_o
     );
 
     parameter [31:0] DIV_COUNTER_END = {8'b0,{24{1'b1}}};
-    localparam A_WIDTH = 5;
-    localparam D_WIDTH = 1;
+    localparam A_WIDTH = 6;
+    localparam D_WIDTH = 2;
 
     wire clk;
     wire clk_ibufg;

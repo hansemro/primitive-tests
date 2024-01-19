@@ -12,7 +12,7 @@ module ram64x1s (
     );
 
     parameter [31:0] DIV_COUNTER_END = {8'b0,{24{1'b1}}};
-    localparam A_WIDTH = 5;
+    localparam A_WIDTH = 6;
     localparam D_WIDTH = 1;
 
     wire clk;
