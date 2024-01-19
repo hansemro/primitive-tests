@@ -120,6 +120,9 @@ module ram32x1s (
     end
 
     // DUT
+`ifdef YOSYS
+    (* keep *)
+`endif
     RAM32X1S ram (
         .O(q_o),
         .D(data),

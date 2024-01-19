@@ -120,6 +120,9 @@ module ram128x1d (
     end
 
     // DUT
+`ifdef YOSYS
+    (* keep *)
+`endif
     RAM128X1D ram (
         .SPO(q_o[0]),
         .DPO(q_o[1]),
