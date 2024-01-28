@@ -1,7 +1,5 @@
 `default_nettype none   //do not allow undeclared wires
 
-`define BROKEN
-
 module blinky (
     input  wire clk_p,
     input  wire clk_n,
@@ -9,7 +7,7 @@ module blinky (
     output wire [6:0] clkout
     );
 
-    wire pll_clk;
+    wire [6:0] pll_clkout;
     wire feedback;
 
     wire clk_ibufgds;
@@ -28,7 +26,6 @@ module blinky (
         .CLKOUT0_PHASE        (0.000),
         .CLKOUT0_DUTY_CYCLE   (0.500),
         .CLKOUT0_USE_FINE_PS  ("FALSE"),
-`ifdef BROKEN
         .CLKOUT1_DIVIDE       (40.000), // f_vco / 40.0 = 25 MHz
         .CLKOUT1_PHASE        (0.000),
         .CLKOUT1_DUTY_CYCLE   (0.500),
@@ -47,7 +44,6 @@ module blinky (
         .CLKOUT6_DIVIDE       (100.000), // 10 MHz
         .CLKOUT6_PHASE        (0.000),
         .CLKOUT6_DUTY_CYCLE   (0.500),
-`endif
         .CLKIN1_PERIOD        (5.000)
     ) MMCME2_ADV (
         .PSINCDEC(1'b0),
@@ -58,23 +54,26 @@ module blinky (
         .PWRDWN(1'b0),
         .RST(1'b0),
         .CLKFBOUT(feedback),
-        .CLKOUT0(pll_clk),
-`ifdef BROKEN
-        .CLKOUT1(clkout[1]),
-        .CLKOUT2(clkout[2]),
-        .CLKOUT3(clkout[3]),
-        .CLKOUT4(clkout[4]),
-        .CLKOUT5(clkout[5]),
-        .CLKOUT6(clkout[6]),
-`endif
+        .CLKOUT0(pll_clkout[0]),
+        .CLKOUT1(pll_clkout[1]),
+        .CLKOUT2(pll_clkout[2]),
+        .CLKOUT3(pll_clkout[3]),
+        .CLKOUT4(pll_clkout[4]),
+        .CLKOUT5(pll_clkout[5]),
+        .CLKOUT6(pll_clkout[6]),
         .LOCKED()
     );
 
-    assign clkout[0] = pll_clk;
+    genvar i;
+    generate
+        for (i = 0; i < 7; i = i + 1) begin : bufg_gen
+            BUFG bufg_inst (.I(pll_clkout[i]), .O(clkout[i]));
+        end
+    endgenerate
 
     reg [24:0] r_count = 0;
 
-    always @(posedge(pll_clk)) r_count <= r_count + 1;
+    always @(posedge(clkout[0])) r_count <= r_count + 1;
 
     assign led = r_count[24];
 endmodule
