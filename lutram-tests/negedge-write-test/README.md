@@ -42,54 +42,19 @@ make FAMILY=kintex7 PART=xc7k325tffg900-2 BOARD=kc705 JTAG_CABLE=digilent XDC=kc
 
 ### Using Vivado Toolchain
 
-To generate the bitstream with a specified LUTRAM cell using the Vivado toolchain, run the following:
+To generate the bitstream using the Vivado toolchain, run the following:
 
 ```
-make [PART=...] [XDC=...] LUTRAM=<LUTRAM_TYPE> vivadoclean top.vivado.bit
+make [PART=...] [XDC=...] vivadoclean top.vivado.bit
 ```
-
-Available `LUTRAM_TYPE` options:
-
-- Supported by Vivado:
-    - RAMS32
-    - RAMD32
-    - RAMS64E
-    - RAMD64E
-    - RAM32X1S
-    - RAM64X1S
-    - RAM128X1S
-    - RAM256X1S
-    - RAM32X1D
-    - RAM64X1D
-    - RAM128X1D
-    - RAM32M
-    - RAM64M
 
 ### Using OpenXC7 Toolchain
 
-To generate the bitstream with a specified LUTRAM cell using the OpenXC7 toolchain, run the following:
+To generate the bitstream using the OpenXC7 toolchain, run the following:
 
 ```
-make [FAMILY=...] [PART=...] [XDC=...] LUTRAM=<LUTRAM_TYPE> clean top.bit
+make [FAMILY=...] [PART=...] [XDC=...] clean top.bit
 ```
-
-Available `LUTRAM_TYPE` options:
-
-- Supported by OpenXC7/NextPNR:
-    - RAM32X1D
-    - RAM64X1D
-    - RAM128X1D
-    - RAM32M
-    - RAM64M
-- Not yet supported by OpenXC7/NextPNR:
-    - RAMS32
-    - RAMD32
-    - RAMS64E
-    - RAMD64E
-    - RAM32X1S
-    - RAM64X1S
-    - RAM128X1S
-    - RAM256X1S
 
 ## Programming the Target
 
