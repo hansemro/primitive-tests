@@ -95,6 +95,14 @@ Available `LUTRAM_TYPE` options:
     - RAM128X1S
     - RAM256X1S
 
+## Generating 256-bit INIT Pattern
+
+1. Install `openssl` to generate random numbers.
+
+2. Run `generate_init.sh` to generate `lutram_init.vh` and `init.cfg` with a random 256-bit INIT pattern.
+
+3. [Regenerate the bitstream](#SelectingLutramAndGeneratingTheBitstream).
+
 ## Programming the Target
 
 > [!NOTE]
