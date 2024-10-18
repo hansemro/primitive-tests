@@ -108,7 +108,7 @@
         .IS_CLK_INVERTED(1'b0)
     ) srlc16e (
         .Q(lutram_do[0]),
-        .Q(lutram_do[1]),
+        .Q15(lutram_do[1]),
         .A3(lutram_addr[3]),
         .A2(lutram_addr[2]),
         .A1(lutram_addr[1]),
